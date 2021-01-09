@@ -1,0 +1,41 @@
+#include<Servo.h>               
+ Servo myservo;            
+const int eko=10;        
+const int trig=11;        
+int mesafe;
+int sure;
+
+void setup() {
+  myservo.attach(9);
+  pinMode(trig,OUTPUT);        
+  pinMode(eko,INPUT);    
+    Serial.begin(9600);     
+      
+}
+
+void loop() {       
+  digitalWrite(trig, 0);       
+  delayMicroseconds(2);
+   digitalWrite(trig, 1); 
+  delayMicroseconds(10);
+   digitalWrite(trig, 0); 
+  sure = pulseIn(eko, HIGH);      
+  mesafe= (sure/29.1)/2;  
+  
+
+  if(mesafe<=10){
+    myservo.write(160);
+   delay(4000);   
+  }
+  
+ if(mesafe<0){
+  myservo.write(0);  
+ }
+ else{
+      myservo.write(0);
+     delay(1000);
+}
+  
+Serial.println(mesafe);
+
+}
